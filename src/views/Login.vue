@@ -9,16 +9,19 @@
       <div class="container">
         <div class="middle">
           <div id="login">
-            <form action="javascript:void(0);" method="get">
+            <form>
               <fieldset class="clearfix">
-                <p ><span class="fa fa-user"></span><input type="text"  Placeholder="Username" required></p>
+                <p class="alert">{{ errorMessage }}</p>
+                <p ><span class="fa fa-user"></span>
+                  <input type="text" ref="usernameInput" v-model.trim="username" Placeholder="Username" required></p>
                 <!-- JS because of IE support; better: placeholder="Username" -->
-                <p><span class="fa fa-lock"></span><input type="password"  Placeholder="Password" required></p>
+                <p><span class="fa fa-lock"></span>
+                  <input type="password"  ref="passwordInput" v-model.trim="password" Placeholder="Password" required></p>
                 <!-- JS because of IE support; better: placeholder="Password" -->
                 <div>
-                     <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text" href="#">Forgot
+                     <span @click.prevent="doFindPW" class="find_pw" ><a class="small-text" href="#">Forgot
                      password?</a></span>
-                  <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="authentication"></span>
+                  <span @Click.prevent="doLogin" style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="authentication"></span>
                 </div>
               </fieldset>
               <div class="clearfix"></div>
@@ -30,6 +33,7 @@
             <img class="admin_image" src="@/assets/kisspng-icon-design-admin-settings-male-icon-free-download-png-and-5d4039eb06b259.9776113015644902190274.png" alt="admin page logo"/>
             <div class="clearfix"></div>
           </div>
+
         </div>
       </div>
     </div>
@@ -38,20 +42,66 @@
 
 <script>
 
+
+
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Login',
-  components: {
-
+  data : function (){
+    return {
+      username: 'testscore12345',
+      password : 'testscore12345',
+      errorMessage : ''
+    };
   },
-  props: {
-    msg: String
+  methods : {
+    doLogin(){
+      if (this.username === "") {
+        alert("아이디를 입력하세요.");
+        this.$refs.usernameInput.focus();
+        return;
+      } else if (this.password === "") {
+        alert("패스워드를 입력하세요.");
+        this.$refs.passwordInput.focus();
+        return;
+      }
+      const loginFrm = new FormData()
+      loginFrm.append('username', this.username);
+      loginFrm.append('password', this.password);
+      this.Auth.dispatch("doLogin", loginFrm).then(() => {
+        this.$router.push("/");
+      }).catch((err) => {
+        this.errorMessage = err.response.data.detail;
+      });
+
+    },
+
+    doFindPW(){
+      this.errorMessage = "please ask to Master";
+    }
+  },
+
+  mounted() {
+    this.$refs.usernameInput.focus();
   }
 }
 
 </script>
 
 <style scoped>
+
+
+.alert {
+  text-align:left;
+  color:white!important;
+}
+
+.find_pw{
+  width:48%;
+  text-align:left;
+  display: inline-block;
+}
 
 div.main{
   background: #0264d6; /* Old browsers */
@@ -82,6 +132,7 @@ div.main{
  }
 
 }
+
 
 body {
 
