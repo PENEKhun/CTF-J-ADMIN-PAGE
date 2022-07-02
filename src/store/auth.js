@@ -75,6 +75,48 @@ export const loginStore = new Vuex.Store({
                 }
             });
         },
+
+        // 재발행 합니다.
+        async doReissue({ commit }) {
+            let result = false;
+            let resultErr = null;
+            try {
+                let config = {
+                    headers: {
+                        'Authorization': this.state.accessToken,
+                        'REFRESH': this.state.refreshToken
+                    }
+                }
+                let res = await axios.post(HOST + "/reissue", config);
+                if (res.status === 200) {
+                    console.log("재발행 완료");
+                    console.log(res.data);
+                    commit('setAccessToken', res.data.token);
+                    commit('setRefreshToken', res.data.refresh);
+                    result = true;
+                } else {
+                    console.log("재발행 오류");
+                    let err = new Error("Request failed");
+                    err.response = {data:{"success":false, "errormessage": err.response.details}};
+                    resultErr = err;
+                }
+            } catch(err) {
+                console.log(err);
+                if (!err.response) {
+                    err.response = {data:{"success":false, "errormessage":err.response.details}};
+                }
+                resultErr = err;
+            }
+            return new Promise((resolve, reject) => {
+                if (result) {
+                    resolve();
+                } else {
+                    reject(resultErr);
+                }
+            });
+        },
+
+
         // 로그아웃합니다.
         doLogout({commit}) {
             commit('reset');
