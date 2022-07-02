@@ -16,6 +16,17 @@ export default {
   },
   props: {
     msg: String
+  },
+  mounted: function () {
+    loadScript("/js/Helpers.js").then(() =>
+        loadScript("/js/config.js").then(() =>
+            loadScript("/js/perfect-scrollbar.js").then(() =>
+                loadScript("/js/menu.js").then(() =>
+                    loadScript("/js/main.js")
+                )
+            )
+        )
+  )
   }
 }
 
