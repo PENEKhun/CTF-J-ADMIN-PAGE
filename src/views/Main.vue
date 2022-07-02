@@ -1,18 +1,38 @@
+<style src="@/assets/fonts/boxicons.css"/>
+<style src="@/assets/css/core.css"/>
+<style src="@/assets/css/theme-default.css"/>
+<style src="@/assets/css/demo.css"/>
+<style src="@/assets/libs/perfect-scrollbar/perfect-scrollbar.css"/>
+
 <template>
-  <div class="root_wrapper">
-    <Menu class="menu"/>
-    <router-view class="main_view"></router-view>
+    <CommonMenu/>
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+  <div class="layout-page" >
+    <Header></Header>
+    <div class="content-wrapper">
+    <router-view></router-view>
+    </div>
+    <Footer></Footer>
+  </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Menu from '@/components/common/CommonMenu';
+
+import CommonMenu from '@/components/common/CommonMenu';
+import Header from "@/components/common/CommonHeader";
+import Footer from "@/components/common/CommonFooter";
+import {loadScript} from "vue-plugin-load-script";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Main',
   components: {
-    Menu,
+    CommonMenu,
+    Header,
+    Footer
   },
   props: {
     msg: String
@@ -34,25 +54,5 @@ export default {
 
 <style scoped>
 
-.main_view{
-  padding-top:3vh;
-  grid-area: main;
-}
-.menu{
-  grid-area: sd;
-}
-
-.root_wrapper {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-auto-rows: auto;
-  grid-template-areas:
-      "sd main"
-      "sd main"
-      "sd main"
-      /*"sd sd sd main main main main main main"*/
-      /*"sd sd sd main main main main main main"*/
-      /*"sd sd sd main main main main main main"*/
-}
 
 </style>
