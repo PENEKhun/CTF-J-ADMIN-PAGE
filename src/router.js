@@ -63,13 +63,20 @@ router.beforeEach( async(to, from, next) => { //여기서 모든 라우팅이 �
      */
 
     if (to.matched.some(function(routeInfo) {
+        // noinspection JSUnresolvedVariable
         return routeInfo.meta.authRequired;
     })) {
-        if (!this.Auth.getters.isLogin) {
+        if (Auth.getters.isLogin === false) {
             //2개 토큰이 모두 없을 경우 로그인페이지로
             console.log("로그인 페이지로 이동합니다.");
             return next({name: 'login'});
         }
     }
+
+    if (to.name.match("login") && Auth.getters.isLogin){
+        console.log("이미 로그인 되어 있습니다.");
+        return next({name : 'Home'})
+    }
+
     return next();
 })
