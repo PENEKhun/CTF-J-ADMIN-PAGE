@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 
 const HOST = "http://15.165.86.75:8080/api/v1";
 
@@ -16,16 +17,14 @@ export const loginStore = new Vuex.Store({
         }
     },
     mutations: {
-        // memberId를 설정합니다.
         setUsername(state, username) {
             state.username = username;
         },
-        // accessToken를 설정합니다.
         setAccessToken(state, accessToken) {
             state.accessToken = accessToken;
         },
         setRefreshToken(state, refreshToken) {
-            state.refrehToken = refreshToken;
+            state.refreshToken = refreshToken;
         },
         setTokenExpired(state, tokenExpired){
             state.tokenExpired = tokenExpired;
@@ -49,9 +48,10 @@ export const loginStore = new Vuex.Store({
                 let res = await axios.post(HOST + "/login", memberInfo);
                 if (res.status === 200) {
                     console.log("로그인되었습니다.");
+                    console.log(res.data);
                     commit('setUsername', memberInfo.username);
-                    commit('setAccessToken', res.data.accessToken);
-                    commit('setRefreshToken', res.data.refrehToken);
+                    commit('setAccessToken', res.data.token);
+                    commit('setRefreshToken', res.data.refresh);
                     commit('setTokenExpired', res.data.tokenExpired);
                     result = true;
                 } else {
@@ -79,7 +79,15 @@ export const loginStore = new Vuex.Store({
         doLogout({commit}) {
             commit('reset');
         }
-    }
+    },
+    computed : {
+
+    },
+    plugins : [
+        createPersistedState({
+            storage: window.sessionStorage
+        })
+    ]
 });
 
 export default loginStore;
