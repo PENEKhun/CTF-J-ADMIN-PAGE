@@ -17,12 +17,37 @@ const routes = [
             {
                 path: "/",
                 component: DefaultHome,
-                name: "default Home",
+                name: "default home",
             },
             {
                 path: "/test",
                 component: Test,
                 name: "test",
+            },
+
+            /* Account Menu */
+            {
+                path: "/AccountOverview",
+                component: AccountOverview,
+                name: "AccountOverview",
+            },
+            {
+                path: "/CreateAccount",
+                component: CreateAccount,
+                name: "CreateAccount",
+            },
+
+
+            /* Problem Menu */
+            {
+                path: "/ProblemOverview",
+                component: ProblemOverview,
+                name: "ProblemOverview",
+            },
+            {
+                path: "/CreateAccount",
+                component: CreateAccount,
+                name: "CreateAccount",
             },
         ]
     },
@@ -30,6 +55,7 @@ const routes = [
         path: '/login',
         name: 'login',
         meta: {authRequired: false},
+
         component: () => import("@/views/Login")
     },
 
