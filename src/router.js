@@ -2,7 +2,10 @@ import { createWebHistory, createRouter } from 'vue-router';
 import NotFound from "@/views/NotFound";
 import DefaultHome from "@/components/home/DefaultHome";
 import Test from "@/components/home/Test";
-import VueCookies from "vue-cookies";
+import Auth from "@/store/auth";
+import CreateAccount from "@/components/home/CreateAccount";
+import ProblemOverview from "@/components/home/ProblemOverview";
+import AccountOverview from "@/components/home/AccountOverview";
 
 const routes = [
     {
