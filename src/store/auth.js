@@ -14,6 +14,9 @@ export const loginStore = new Vuex.Store({
     getters: {
         isLogin(state) {
             return state.accessToken !== '';
+        },
+        tokenExpired(state) {
+            return state.tokenExpired;
         }
     },
     mutations: {
@@ -81,18 +84,16 @@ export const loginStore = new Vuex.Store({
             let result = false;
             let resultErr = null;
             try {
-                let config = {
-                    headers: {
-                        'Authorization': this.state.accessToken,
-                        'REFRESH': this.state.refreshToken
-                    }
+                let headers = {
+                        Authorization: this.state.accessToken,
+                        REFRESH: this.state.refreshToken
                 }
-                let res = await axios.post(HOST + "/reissue", config);
+                let res = await axios.post(HOST + "/reissue", {}, {headers});
                 if (res.status === 200) {
                     console.log("재발행 완료");
-                    console.log(res.data);
                     commit('setAccessToken', res.data.token);
                     commit('setRefreshToken', res.data.refresh);
+                    commit('setTokenExpired', res.data.tokenExpired);
                     result = true;
                 } else {
                     console.log("재발행 오류");
