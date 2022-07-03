@@ -6,6 +6,8 @@ import Auth from "@/store/auth";
 import CreateAccount from "@/components/home/CreateAccount";
 import ProblemOverview from "@/components/home/ProblemOverview";
 import AccountOverview from "@/components/home/AccountOverview";
+import FlagAuthLog from "@/components/home/FlagAuthLog";
+import IntegratedLog from "@/components/home/IntegratedLog";
 
 const routes = [
     {
@@ -48,6 +50,19 @@ const routes = [
                 path: "/CreateAccount",
                 component: CreateAccount,
                 name: "CreateAccount",
+            },
+
+
+            /* Log Menu */
+            {
+                path: "/FlagAuthLog",
+                component: FlagAuthLog,
+                name: "FlagAuthLog",
+            },
+            {
+                path: "/IntegratedLog",
+                component: IntegratedLog,
+                name: "IntegratedLog",
             },
         ]
     },
