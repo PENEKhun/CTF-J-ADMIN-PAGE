@@ -34,9 +34,6 @@ export default {
     Header,
     Footer
   },
-  props: {
-    msg: String
-  },
   mounted: function () {
     loadScript("/js/Helpers.js").then(() =>
         loadScript("/js/config.js").then(() =>
