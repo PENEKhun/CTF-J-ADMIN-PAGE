@@ -77,7 +77,7 @@
       </li>
       <li class="menu-item" style=""> <!--  active -->
         <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bx-dock-top"></i>
+          <i class='menu-icon bx bxs-user-account' ></i>
           <div data-i18n="Account Settings">Accounts</div>
         </a>
         <ul class="menu-sub">
@@ -96,7 +96,8 @@
 
       <li class="menu-item">
         <a href="javascript:void(0)" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bx-copy"></i>
+<!--          <i class="menu-icon tf-icons bx bx-copy"></i>-->
+          <i class='menu-icon bx bx-list-ol' ></i>
           <div data-i18n="Extended UI">Problems</div>
         </a>
         <ul class="menu-sub">
@@ -176,14 +177,14 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <a href="ui-accordion.html" class="menu-link">
+            <router-link to="/FlagAuthLog" class="menu-link">
               <div data-i18n="Accordion">Flag Auth Log</div>
-            </a>
+            </router-link>
           </li>
           <li class="menu-item">
-            <a href="ui-alerts.html" class="menu-link">
+            <router-link to="/IntegratedLog" class="menu-link">
               <div data-i18n="Alerts">Integrated Log</div>
-            </a>
+            </router-link>
           </li>
         </ul>
       </li>
@@ -192,13 +193,14 @@
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
       <li class="menu-item">
         <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-support"></i>
+<!--          <i class="menu-icon tf-icons bx bx-support"></i>-->
+          <i class='menu-icon bx bxl-github'></i>
           <div data-i18n="Support">Support</div>
         </a>
       </li>
       <li class="menu-item">
         <a v-on:click="doLogout" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-crown"></i>
+          <i class="menu-icon bx bx-log-out"></i>
           <div data-i18n="Boxicons">Logout</div>
         </a>
       </li>
