@@ -8,6 +8,7 @@ import ProblemOverview from "@/components/home/ProblemOverview";
 import AccountOverview from "@/components/home/AccountOverview";
 import FlagAuthLog from "@/components/home/FlagAuthLog";
 import IntegratedLog from "@/components/home/IntegratedLog";
+import MakeProblem from "@/components/home/MakeProblem";
 
 const routes = [
     {
@@ -47,9 +48,9 @@ const routes = [
                 name: "ProblemOverview",
             },
             {
-                path: "/CreateAccount",
-                component: CreateAccount,
-                name: "CreateAccount",
+                path: "/MakeProblem",
+                component: MakeProblem,
+                name: "MakeProblem",
             },
 
 
