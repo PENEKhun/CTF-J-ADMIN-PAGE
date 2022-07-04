@@ -66,7 +66,7 @@ a.last::before {
 
 li {
   display: inline;
-  margin: 5px 5px;
+  margin: 3px 3px;
 }
 
 .current {
