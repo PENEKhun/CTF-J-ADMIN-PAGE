@@ -60,7 +60,7 @@ export default {
       log : Array,
       search : {
         logType: "log",
-        sortType: "asc",
+        sortType: "desc",
         pageNum: 0,
         amount: 30,
       },
