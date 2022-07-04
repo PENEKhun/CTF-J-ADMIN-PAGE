@@ -1,0 +1,83 @@
+<template>
+  <div class="row m-4">
+
+    <!--        page Number-->
+    <div class="col-8">
+      <label for="exampleFormControlSelect1" class="col-form-label">total Items : {{totalElements}}</label>
+      <label class="col-md-1"></label> <!-- for little space -->
+      <label for="exampleFormControlSelect1" class="col-form-label">total Items : {{totalElements}}</label>
+      <br/>
+    <ul>
+      <li v-for="pageNumber in totalPage" :key="pageNumber--">
+        <li v-if="Math.abs(pageNumber - search.pageNum) < 5 || pageNumber === totalPage - 1 || pageNumber === 0">
+        <a @click="search.pageNum = pageNumber"
+           :class="{last: (pageNumber === totalPage - 1 && Math.abs(pageNumber - search.pageNum) > 5),
+                    first:(pageNumber === 0 && Math.abs(pageNumber - search.pageNum) > 5),
+                    current: pageNumber === search.pageNum }">
+          {{ pageNumber + 1}}
+        </a>
+        </li>
+      </li>
+    </ul>
+    </div>
+
+    <!--        sort Type-->
+    <div class="col-2">
+      <label for="exampleFormControlSelect1" class="col-form-label">sort by</label>
+      <select class="form-select col-6" v-model.trim="this.search.sortType" id="exampleFormControlSelect1" aria-label="Default select example">
+        <option value="desc">DESC</option>
+        <option value="asc">ASC</option>
+      </select>
+    </div>
+
+    <!--        page Per-->
+    <div class="col-2">
+      <label for="exampleFormControlSelect1" class="col-form-label">page per</label>
+      <select class="form-select col-6" v-model.trim="this.search.amount" id="exampleFormControlSelect1" aria-label="Default select example">
+        <option value="10">10</option>
+        <option value="30">30</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "CommonPaging",
+  props:{
+    search : Object,
+    totalPage : Number,
+    totalElements : Number
+  }
+}
+</script>
+
+<style scoped>
+
+a.first::after {
+  content:'...'
+}
+
+a.last::before {
+  content:'...'
+}
+
+li {
+  display: inline;
+  margin: 5px 5px;
+}
+
+.current {
+  color: red!important;
+}
+a {
+  color: black;
+}
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+</style>
