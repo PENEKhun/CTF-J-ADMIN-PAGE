@@ -2,8 +2,8 @@
   <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Problems /</span> Overview</h4>
 
-    <div class="card">
-<!--      <h5 class="card-header"></h5>-->
+<!--    overView-->
+    <div v-if="$route.query.id == null" class="card">
       <div class="table-responsive text-nowrap">
         <table class="table table-striped">
           <thead>
@@ -22,7 +22,7 @@
             <td> {{index}} </td>
             <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
 <!--              <strong>Angular Project</strong>-->
-              <a style="color:black" :href='"./ProblemOverview/" + index'>{{ line['title'] }} </a>
+              <a style="color:black" :href='"./ProblemOverview?id=" + index'>{{ line['title'] }} </a>
             </td>
             <td >{{ line['type'] }}</td>
             <td>
@@ -51,7 +51,41 @@
         </table>
       </div>
     </div>
+
+<!--    Preview-->
+    <div v-else class="card p-4">
+      <div v-if="problems[$route.query.id-1] != null" :key="problem=problems[$route.query.id-1]">
+<!--        문제가 존재할때-->
+        #{{ problem['id'] }} <br/>
+        <strong>title</strong> : {{problem['title']}} <br/>
+        <strong>description</strong> : {{problem['description']}} <br/>
+        <strong>type</strong> : {{problem['type']}} <br/>
+        <strong>flag</strong> : {{problem['flag']}} <br/>
+        <strong>minScore</strong> : {{problem['minScore']}} <br/>
+        <strong>maxScore</strong> : {{problem['maxScore']}} <br/>
+        <strong>solveThreshold</strong> : {{problem['solveThreshold']}} <br/>
+        <strong>solve</strong> : {{problem['solve']}} <br/>
+        <strong>solveList</strong> : {{problem['solveList']}} <br/>
+        <strong>calculatedScore</strong> : {{problem['calculatedScore']}} <br/>
+        <strong>isPublic</strong> : {{problem['public']}} <br/>
+      </div>
+
+      <div v-else>
+<!--        id로 된 문제가 없을때-->
+        <br/>
+        <Strong>ERROR</Strong><br/>
+        NOT FOUND
+        <br/>
+      </div>
+
+    </div>
+
   </div>
+
+
+
+
+
 
 </template>
 

@@ -29,17 +29,22 @@
 
           <div v-show="isFileUnderfined" class="alert alert-warning" role="alert">Please select file</div>
           </div>
+          <div class="row-cols" style="margin-inline: auto">
+          <div class="spinner-border text-primary" v-show="uploadingProgress" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
 
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" @click="initUploadModal()" ref="dismiss-modal" data-bs-dismiss="modal">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" @click="initUploadModal()" ref="dismiss-modal" data-bs-dismiss="modal">
               cancel
-            </button>
-            <button type="button" class="btn btn-primary" @click="uploadFile()">upload file</button>
+              </button>
+              <button type="button" class="btn btn-primary" @click="uploadFile();">upload file</button>
+          </div>
+          </div>
+
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
     <div class="row">
       <!-- Basic Layout -->
@@ -192,6 +197,7 @@ export default {
       fileName : '',
       fileToUpload : undefined,
       isFileUnderfined : false,
+      uploadingProgress : false,
 
       title : '',
       type : 'Crypto',
@@ -211,10 +217,6 @@ export default {
     sameCheckFlag() {
       return this.flag === this.flag_re;
     },
-    //
-    // getPublic() {
-    //   return this.isPublic === true;
-    // }
   },
 
   methods: {
@@ -232,6 +234,7 @@ export default {
         console.log(this.fileToUpload.name);
         this.fileName = this.fileToUpload.name;
       }
+      this.uploadingProgress = true;
       Problem.uploadFile(this.fileToUpload).then(response => {
         this.quill.insertText(this.quill.getLength(), `Download : ${this.fileName}`, 'link', `${DEFAULT_HOST}/file/${response.data.url}`);
         this.$refs["dismiss-modal"].click();
@@ -266,6 +269,7 @@ export default {
       this.fileName = '';
       this.$refs.fileInput.value = null;
       this.isFileUnderfined = false;
+      this.uploadingProgress = false;
     }
   },
 

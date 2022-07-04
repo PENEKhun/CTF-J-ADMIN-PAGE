@@ -24,7 +24,7 @@
     <!--        sort Type-->
     <div class="col-2">
       <label for="exampleFormControlSelect1" class="col-form-label">sort by</label>
-      <select class="form-select col-6" v-model.trim="this.search.sortType" id="exampleFormControlSelect1" aria-label="Default select example">
+      <select class="form-select col-6" v-model.trim="this.search.sortType" @change="this.search.pageNum=0" id="exampleFormControlSelect1" aria-label="Default select example">
         <option value="desc">DESC</option>
         <option value="asc">ASC</option>
       </select>
@@ -33,7 +33,7 @@
     <!--        page Per-->
     <div class="col-2">
       <label for="exampleFormControlSelect1" class="col-form-label">page per</label>
-      <select class="form-select col-6" v-model.trim="this.search.amount" id="exampleFormControlSelect1" aria-label="Default select example">
+      <select class="form-select col-6" v-model.trim="this.search.amount" @change="this.search.pageNum=0" id="exampleFormControlSelect1" aria-label="Default select example">
         <option value="10">10</option>
         <option value="30">30</option>
         <option value="50">50</option>
