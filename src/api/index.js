@@ -3,11 +3,12 @@ import { setInterceptors } from './common/interceptors';
 import loginStore from "@/store/auth";
 import Auth from "@/store/auth";
 
-const HOST = "http://15.165.86.75:8080/api/v1/admin";
+export const ADMIN_HOST = "http://15.165.86.75:8080/api/v1/admin";
+export const DEFAULT_HOST = "http://15.165.86.75:8080/api/v1";
 
 export function createInstance() {
     return axios.create({
-        baseURL: HOST
+        baseURL: ADMIN_HOST
     });
 }
 
@@ -22,7 +23,7 @@ export function createInstanceWithAuth(url) { // Token값과 특정 url을 붙�
     } else {
         // 토큰 만료가 아니면
         const instance = axios.create({
-            baseURL: `${HOST}${url}`,
+            baseURL: `${ADMIN_HOST}${url}`,
         })
         return setInterceptors(instance);
     }
