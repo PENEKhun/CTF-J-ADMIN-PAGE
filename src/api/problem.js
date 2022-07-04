@@ -6,5 +6,9 @@ export const Problem = {
     },
     uploadFile: async (file) => {
         return await fileAxios.post("", {file}, {headers : {'Content-Type' : 'multipart/form-data'}});
+    },
+    uploadProblem: async (problemFrm) => {
+        return await problemAxios.post("", problemFrm);
+
     }
 }
