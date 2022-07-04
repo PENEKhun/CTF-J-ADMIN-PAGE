@@ -18,15 +18,7 @@ export function createInstanceWithAuth(url) { // Token값과 특정 url을 붙�
     let now = new Date().getTime();
     if (now > tokenExpired) {
         // 토큰 만료시
-        console.log("토큰을 재발급합니다.");
-        Auth.dispatch("doReissue").then(() => {
-            const instance = axios.create({
-                baseURL: `${HOST}${url}`,
-            })
-            return setInterceptors(instance);
-        }).catch((err) => {
-            console.error("토큰 재발급 오류 ", err);
-        });
+        tokenReissue();
     } else {
         // 토큰 만료가 아니면
         const instance = axios.create({
@@ -34,6 +26,11 @@ export function createInstanceWithAuth(url) { // Token값과 특정 url을 붙�
         })
         return setInterceptors(instance);
     }
+}
+
+export function tokenReissue(){
+    console.log("토큰을 재발급합니다.");
+    Auth.dispatch("doReissue").then(r => console.log("토큰 재발행 완료"));
 }
 
 export const instance = createInstance();
