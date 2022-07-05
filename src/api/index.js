@@ -38,5 +38,6 @@ export const instance = createInstance();
 
 // export const posts = createInstanceWithAuth('/posts');
 export const problemAxios = createInstanceWithAuth('/problem');
+export const accountAxios = createInstanceWithAuth('/account');
 export const fileAxios = createInstanceWithAuth('/file');
 export const logAxios = createInstanceWithAuth('/log');
