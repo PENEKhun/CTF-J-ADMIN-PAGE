@@ -1,10 +1,11 @@
 import {logAxios} from "@/api/index";
+import {pagingQuery} from "@/api/common/pagingQuery";
 
 export const Log = {
-    fetchFlagLog: async (_logType, _pageNum, _amount, _sortType) => {
-        return logAxios.get(`?logType=${_logType}&pageNum=${_pageNum}&amount=${_amount}&sortType=${_sortType}`);
+    fetchFlagLog: async (search) => {
+        return logAxios.get(pagingQuery(search));
     },
-    fetchIntegratedLog: async (_logType, _pageNum, _amount, _sortType) => {
-        return logAxios.get(`?logType=${_logType}&pageNum=${_pageNum}&amount=${_amount}&sortType=${_sortType}`);
+    fetchIntegratedLog: async (search) => {
+        return logAxios.get(pagingQuery(search));
     }
 }
