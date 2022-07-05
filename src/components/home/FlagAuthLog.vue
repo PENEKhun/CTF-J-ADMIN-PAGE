@@ -89,7 +89,7 @@ export default {
   },
   methods : {
     getAllFlagLog() {
-      let res = Log.fetchFlagLog(this.search.logType, this.search.pageNum, this.search.amount, this.search.sortType);
+      let res = Log.fetchFlagLog(this.search);
       console.log(res);
       res.then((q) => {
         if (q.status === 200){

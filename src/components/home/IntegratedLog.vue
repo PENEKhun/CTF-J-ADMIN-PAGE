@@ -90,7 +90,7 @@ export default {
   },
   methods : {
     getIntegratedLog() {
-      let res = Log.fetchIntegratedLog(this.search.logType, this.search.pageNum, this.search.amount, this.search.sortType);
+      let res = Log.fetchIntegratedLog(this.search);
       console.log(res);
       res.then((q) => {
         if (q.status === 200){
