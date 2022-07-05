@@ -2,7 +2,7 @@
   <div class="row m-4">
 
     <!--        page Number-->
-    <div class="col-8">
+    <div class="col-6">
       <label for="exampleFormControlSelect1" class="col-form-label">total Items : {{totalElements}}</label>
       <label class="col-md-1"></label> <!-- for little space -->
       <label for="exampleFormControlSelect1" class="col-form-label">total Items : {{totalElements}}</label>
@@ -21,10 +21,18 @@
     </ul>
     </div>
 
-    <!--        sort Type-->
+    <!--        sort by-->
     <div class="col-2">
       <label for="exampleFormControlSelect1" class="col-form-label">sort by</label>
-      <select class="form-select col-6" v-model.trim="this.search.sortType" @change="this.search.pageNum=0" id="exampleFormControlSelect1" aria-label="Default select example">
+      <select class="form-select col-6" v-model.trim="this.search.sortBy.value" @change="this.search.pageNum=0" id="exampleFormControlSelect1">
+        <option v-for="column in this.search.sortBy.list" :value="column">{{ column }}</option>
+      </select>
+    </div>
+
+    <!--        sort Type-->
+    <div class="col-2">
+      <label for="exampleFormControlSelect1" class="col-form-label">sort type</label>
+      <select class="form-select col-6" v-model.trim="this.search.sortType" @change="this.search.pageNum=0" id="exampleFormControlSelect1">
         <option value="desc">DESC</option>
         <option value="asc">ASC</option>
       </select>
@@ -33,7 +41,7 @@
     <!--        page Per-->
     <div class="col-2">
       <label for="exampleFormControlSelect1" class="col-form-label">page per</label>
-      <select class="form-select col-6" v-model.trim="this.search.amount" @change="this.search.pageNum=0" id="exampleFormControlSelect1" aria-label="Default select example">
+      <select class="form-select col-6" v-model.trim="this.search.amount" @change="this.search.pageNum=0" id="exampleFormControlSelect1">
         <option value="10">10</option>
         <option value="30">30</option>
         <option value="50">50</option>
