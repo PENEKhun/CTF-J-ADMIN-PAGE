@@ -51,6 +51,8 @@
           </tr>
           </tbody>
         </table>
+
+        <CommonPaging :search="search" :total-elements="totalElements" :total-page="totalPage"/>
       </div>
     </div>
 
@@ -63,13 +65,25 @@
         <!--           :key="account=accounts.find((acc) => acc.id === $route.query.id)">-->
         <!--        문제가 존재할때-->
 
+        <div v-if="editMode === false">
         <strong>index</strong> : {{account['id']}} <br/>
         <strong>username</strong> : {{account['username']}} <br/>
+        <strong>realName</strong> : {{account['realName']}} <br/>
         <strong>nickname</strong> : {{account['nickname']}} <br/>
         <strong>email</strong> : {{account['email']}} <br/>
         <strong>score</strong> : {{account['score']}} <br/>
         <strong>role</strong> : {{account['role']}} <br/>
-        <strong>solved</strong> : {{account['solved']}} <br/>
+        <strong>solved</strong> : {{account['solved']}} <br/><br/>
+
+        <button type="button" @click="editMode=true" class="btn btn-outline-secondary">Edit this account</button>
+        </div>
+
+        <div v-else>
+          <create-account :edit-mode="editMode" :account="account"></create-account>
+
+        </div>
+
+
       </div>
 
     </div>
@@ -82,11 +96,13 @@
 
 import CommonPaging from "@/components/common/log/CommonPaging";
 import {Account} from "@/api/account";
+import CreateAccount from "@/components/home/CreateAccount";
 
 export default {
   name: "AccountOverview",
   components: {
-    'CommonPaging': CommonPaging
+    'CommonPaging': CommonPaging,
+    'CreateAccount' : CreateAccount,
   },
   data() {
     return {
@@ -111,7 +127,7 @@ export default {
       totalPage: 0,
       totalElements: 0,
 
-
+      editMode: false,
     }
   },
   watch: {
