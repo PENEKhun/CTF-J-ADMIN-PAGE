@@ -70,7 +70,7 @@
         <strong>solve</strong> : {{problem['solve']}} <br/>
         <strong>solveList</strong> : {{problem['solveList']}} <br/>
         <strong>calculatedScore</strong> : {{problem['calculatedScore']}} <br/>
-        <strong>isPublic</strong> : {{problem['public']}} <br/><br/>
+        <strong>isPublic</strong> : {{problem['isPublic']}} <br/><br/>
 
         <button type="button" @click="editMode=true" class="btn btn-outline-secondary">Edit this account</button>
       </div>
