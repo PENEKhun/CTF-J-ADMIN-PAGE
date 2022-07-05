@@ -59,6 +59,16 @@ export default {
     return {
       log : Array,
       search : {
+        sortBy : {
+          value : "id",
+          list : [
+            "id",
+            "user",
+            "action",
+            "detail",
+            "time",
+          ]
+        },
         logType: "log",
         sortType: "desc",
         pageNum: 0,
