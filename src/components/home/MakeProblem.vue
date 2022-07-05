@@ -72,7 +72,7 @@
               <div class="row mb-3">
                 <div class="col-6">
                   <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">isPublic</label>
-                  <select class="form-select" v-model.trim="public" id="exampleFormControlSelect1" aria-label="Default select example">
+                  <select class="form-select" v-model.trim="isPublic" id="exampleFormControlSelect1" aria-label="Default select example">
                     <option value="true">Public</option>
                     <option value="false">Private</option>
                   </select>
@@ -176,7 +176,8 @@
               <br/>
               <div class="row justify-content-end">
                 <div class="col">
-                  <button type="button" @click="uploadProblem()" class="btn btn-primary">Upload</button>
+                  <button v-if="editMode" type="button" @click="editEvent()" class="btn btn-primary">Edit</button>
+                  <button v-else type="button" @click="uploadProblem()" class="btn btn-primary">Upload</button>
                 </div>
               </div>
             </form>
@@ -194,6 +195,7 @@ import {loadScript} from "vue-plugin-load-script";
 import {Problem} from "@/api/problem";
 import {DEFAULT_HOST} from "@/api";
 import {QuillEditor} from "@vueup/vue-quill";
+import {Account} from "@/api/account";
 
 export default {
   name: "DefaultHome",
@@ -247,7 +249,7 @@ export default {
       type: Number,
       default: 10,
     },
-    public: {
+    isPublic: {
       type: [String, Boolean],
       default: "true"
     }
@@ -272,7 +274,7 @@ export default {
     },
 
     sameCheckFlag() {
-      return this.flag === this.flag_re;
+      return (this.flag !== "" && this.flag === this.flag_re);
     },
     editor() {
       return this.$refs.myQuillEditor.getQuill
@@ -307,26 +309,32 @@ export default {
 
     uploadProblem() {
       if (this.sameCheckFlag === false) {
-        alert('Check Flag is same');
+        alert('Check Flag value');
         return -1;
       }
 
-      const frm = new FormData();
-      frm.append("flag", this.flag);
-      frm.append("title", this.title);
-      frm.append("description", this.quill.root.innerHTML);
-      frm.append("minScore", this.minScore);
-      frm.append("maxScore", this.maxScore);
-      frm.append("solveThreshold", this.solveThreshold);
-      frm.append("isPublic", this.public);
-      frm.append("type", this.type);
-
-      Problem.uploadProblem(frm).then(response => {
+      Problem.uploadProblem(this.problemDto).then(response => {
         alert("업로드 완료");
         this.$router.push({name : "ProblemOverview"});
       }).catch(error =>{
         alert("업로드 실패");
       });
+    },
+
+    editEvent(){
+      // 계정 수정 이벤트
+      Problem.editPartly(this.problemDto).then((res) => {
+        console.log("response " ,res);
+        if (res.status === 200){
+          // alert("성공");
+          this.$router.go();
+        } else {
+          alert(res.data['detail']);
+        }
+      }).catch(err => {
+        alert("Error - " + err.response.data['detail']);
+        console.error(err);
+      })
     },
 
     initUploadModal(){

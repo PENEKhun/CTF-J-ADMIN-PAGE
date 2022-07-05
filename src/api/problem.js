@@ -7,8 +7,12 @@ export const Problem = {
     uploadFile: async (file) => {
         return await fileAxios.post("", {file}, {headers : {'Content-Type' : 'multipart/form-data'}});
     },
-    uploadProblem: async (problemFrm) => {
-        return await problemAxios.post("", problemFrm);
+    editPartly: async (problemDto) => {
+        return await problemAxios.patch("" + problemDto.id, problemDto, {headers : { "Content-Type": "multipart/form-data"}});
+
+    },
+    uploadProblem: async (problemDto) => {
+        return await problemAxios.post("", problemDto, {headers : { "Content-Type": "multipart/form-data"}});
 
     }
 }

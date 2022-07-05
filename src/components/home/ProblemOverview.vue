@@ -29,11 +29,11 @@
               {{ line['solve'] }}
             </td>
 
-            <td v-if=" line['public'] === true"><span class="badge bg-label-primary me-1">Public</span></td>
+            <td v-if=" line['isPublic'] === true"><span class="badge bg-label-primary me-1">Public</span></td>
             <td v-else><span class="badge bg-label-warning me-1">Private</span></td>
 
-            <td v-if=" line['public'] === true"> {{ line['calculatedScore'] }}</td>
-            <td v-else> ? </td>
+            <td v-if=" line['isPublic'] === true"> {{ line['calculatedScore'] }}</td>
+            <td v-else> ?? </td>
             <td>
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,7 +58,10 @@
 <!--        문제가 존재할때-->
         #{{ problem['id'] }} <br/>
         <strong>title</strong> : {{problem['title']}} <br/>
-        <strong>description</strong> : {{problem['description']}} <br/>
+        <strong>description</strong> :
+        <QuillEditor readOnly='true' theme="bubble" ref="preview" :content="problem['description']" content-type="html">
+        </QuillEditor>
+<!--          {{problem['description']}} <br/>-->
         <strong>type</strong> : {{problem['type']}} <br/>
         <strong>flag</strong> : {{problem['flag']}} <br/>
         <strong>minScore</strong> : {{problem['minScore']}} <br/>
@@ -90,12 +93,14 @@
 
 import {Problem} from "@/api/problem.js";
 import MakeProblem from "@/components/home/MakeProblem";
+import {QuillEditor} from "@vueup/vue-quill";
 
 // export default {
 export default {
   name: "ProblemOverview",
   components: {
-    'MakeProblem' : MakeProblem
+    'MakeProblem' : MakeProblem,
+    'QuillEditor' : QuillEditor
   },
   data: function() {
     return {
