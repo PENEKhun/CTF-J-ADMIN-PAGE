@@ -13,7 +13,6 @@
             <th>#</th>
             <th>action</th>
             <th>details</th>
-            <th>result</th>
             <th>time</th>
           </tr>
           </thead>
@@ -24,10 +23,6 @@
               {{ line['action'] }}
             </td>
             <td >{{ line['detail'] }}</td>
-
-            <td v-if=" JSON.stringify(line['detail']).includes('is_success=true') === true"><span class="badge bg-label-success me-1">Correct</span></td>
-            <td v-else><span class="badge bg-label-danger me-1">Wrong</span></td>
-
             <td>
               {{ line['time'] }}
             </td>
