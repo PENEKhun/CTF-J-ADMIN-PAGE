@@ -257,6 +257,20 @@ export default {
   },
 
   computed : {
+    problemDto(){
+      return {
+          'id': (this.id !== 0) ? this.id : null,
+          'title': this.title,
+          'description': this.editor().root.innerHTML,
+          'type' : this.type,
+          'flag' : (this.sameCheckFlag === false) ? null : this.flag,
+          'minScore': this.minScore,
+          'maxScore': this.maxScore,
+          'solveThreshold': this.solveThreshold,
+          'isPublic': this.isPublic,
+        }
+    },
+
     sameCheckFlag() {
       return this.flag === this.flag_re;
     },
