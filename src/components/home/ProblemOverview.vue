@@ -54,7 +54,7 @@
 
 <!--    Preview-->
     <div v-else class="card p-4">
-      <div v-if="problems[$route.query.id-1] != null" :key="problem=problems[$route.query.id-1]">
+      <div v-if="problems[$route.query.id-1] != null && !editMode" :key="problem=problems[$route.query.id-1]">
 <!--        문제가 존재할때-->
         #{{ problem['id'] }} <br/>
         <strong>title</strong> : {{problem['title']}} <br/>
@@ -67,17 +67,14 @@
         <strong>solve</strong> : {{problem['solve']}} <br/>
         <strong>solveList</strong> : {{problem['solveList']}} <br/>
         <strong>calculatedScore</strong> : {{problem['calculatedScore']}} <br/>
-        <strong>isPublic</strong> : {{problem['public']}} <br/>
+        <strong>isPublic</strong> : {{problem['public']}} <br/><br/>
+
+        <button type="button" @click="editMode=true" class="btn btn-outline-secondary">Edit this account</button>
       </div>
 
-      <div v-else>
-<!--        id로 된 문제가 없을때-->
-        <br/>
-        <Strong>ERROR</Strong><br/>
-        NOT FOUND
-        <br/>
-      </div>
+      <make-problem v-if="editMode" :edit-mode="editMode" v-bind="problem">
 
+      </make-problem>
     </div>
 
   </div>
@@ -91,18 +88,19 @@
 
 <script>
 
-import Content from "@/components/common/CommonContent";
 import {Problem} from "@/api/problem.js";
+import MakeProblem from "@/components/home/MakeProblem";
 
 // export default {
 export default {
   name: "ProblemOverview",
-  components: [
-    Content,
-  ],
+  components: {
+    'MakeProblem' : MakeProblem
+  },
   data: function() {
     return {
-      problems : Array
+      problems : Array,
+      editMode : false,
     }
   },
   methods : {

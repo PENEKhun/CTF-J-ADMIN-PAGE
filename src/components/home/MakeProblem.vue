@@ -2,7 +2,7 @@
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
   <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Problem /</span> Create New</h4>
+    <h4 v-if="!isEditMode" class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Problem /</span> Create New</h4>
 
     <div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -51,8 +51,13 @@
       <div class="col-xxl">
         <div class="card mb-4">
           <div class="card-header d-flex align-items-center justify-content-between">
-            <h5 class="mb-0">Fill the blank to create new problem</h5>
-            <small class="text-muted float-end">문제정보를 입력해주세요</small>
+
+            <h5 v-if="isEditMode" class="mb-0">Change to edit problem</h5>
+            <h5 v-else class="mb-0">Fill the blank to create new problem</h5>
+
+            <small v-if="isEditMode" class="text-muted float-end">문제를 수정해주세요</small>
+            <small v-else class="text-muted float-end">문제정보를 입력해주세요</small>
+
           </div>
           <div class="card-body">
             <form>
@@ -67,9 +72,9 @@
               <div class="row mb-3">
                 <div class="col-6">
                   <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">isPublic</label>
-                  <select class="form-select" v-model.trim="isPublic" id="exampleFormControlSelect1" aria-label="Default select example">
-                    <option value="True">Public</option>
-                    <option value="False">Private</option>
+                  <select class="form-select" v-model.trim="public" id="exampleFormControlSelect1" aria-label="Default select example">
+                    <option value="true">Public</option>
+                    <option value="false">Private</option>
                   </select>
                 </div>
 
@@ -110,28 +115,29 @@
               </div>
               </div>
 
-              <div class="col">
                 <label class="col-form-label" for="basic-default-email">Description</label>
-              <div id="toolbar">
-                <select class="ql-size">
-                  <option value="small"></option>
-                  <option selected></option>
-                  <option value="large"></option>
-                  <option value="huge"></option>
-                </select>
-                <button class="ql-bold"></button>
-                <button class="ql-italic"></button>
-                <button class="ql-underline"></button>
-                <button class="ql-color"></button>
-                <button class="ql-background"></button>
-                <button class="ql-align"></button>
-                <button class="ql-image"></button>
-                <button type="button" id="file-upload" class="bx bx-file" data-bs-toggle="modal" data-bs-target="#basicModal"></button>
-              </div>
-              <div id="editor">
-                <h1 class="ql-align-center"><span class="ql-font-serif" style="color: rgb(255, 255, 255); background-color: rgba(180, 180, 80, 80%);"> I am description Example! </span></h1><p><br></p>
-              </div>
-              </div>
+              <QuillEditor toolbar="#toolbar" ref="myQuillEditor" :content="this.description" content-type="html">
+                <template #toolbar>
+                  <div id="toolbar">
+                    <select class="ql-size">
+                      <option value="small"></option>
+                      <option selected></option>
+                      <option value="large"></option>
+                      <option value="huge"></option>
+                    </select>
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-color"></button>
+                    <button class="ql-background"></button>
+                    <button class="ql-align"></button>
+                    <button class="ql-image"></button>
+                    <button type="button" id="file-upload" class="bx bx-file" data-bs-toggle="modal" data-bs-target="#basicModal"></button>
+                  </div>
+                </template>
+<!--                <h1 class="ql-align-center"><span class="ql-font-serif" style="color: rgb(255, 255, 255); background-color: rgba(180, 180, 80, 80%);"> I am description Example! </span></h1><p><br></p>-->
+              </QuillEditor>
+
 
               <br/>
 
@@ -187,6 +193,7 @@ import Content from "@/components/common/CommonContent";
 import {loadScript} from "vue-plugin-load-script";
 import {Problem} from "@/api/problem";
 import {DEFAULT_HOST} from "@/api";
+import {QuillEditor} from "@vueup/vue-quill";
 
 export default {
   name: "DefaultHome",
@@ -199,27 +206,70 @@ export default {
       isFileUnderfined : false,
       uploadingProgress : false,
 
-      title : '',
-      type : 'Crypto',
-      isPublic : 'True',
-      flag : '',
       flag_re : '',
-      minScore : 500,
-      maxScore : 1000,
-      solveThreshold : 10,
     }
   },
-  components: [
-    Content,
-  ],
+  props: {
+    editMode : {
+      type : Boolean,
+      default : false
+    },
+    
+    id: {
+      type: Number,
+      default: 0
+    },
+    title: {
+      type: String,
+      default: ''
+    },
+    description: {
+      type: String,
+      default: `<h1 class="ql-align-center"><span class="ql-font-serif" style="color: rgb(255, 255, 255); background-color: rgba(180, 180, 80, 80%);"> I am description Example! </span></h1><p><br></p>`
+    },
+    type: {
+      type: String,
+      default: 'Crypto'
+    },
+    flag: {
+      type: String,
+      default: ''
+    },
+    minScore: {
+      type: Number,
+      default: 500
+    },
+    maxScore: {
+      type: Number,
+      default: 1000,
+    },
+    solveThreshold: {
+      type: Number,
+      default: 10,
+    },
+    public: {
+      type: [String, Boolean],
+      default: "true"
+    }
+  },
+  components: {
+    'QuillEditor' : QuillEditor
+  },
 
   computed : {
     sameCheckFlag() {
       return this.flag === this.flag_re;
     },
+    editor() {
+      return this.$refs.myQuillEditor.getQuill
+    }
   },
 
   methods: {
+    isEditMode(){
+      return this.editMode;
+    },
+
     onInputFile() {
       this.fileToUpload = this.$refs.fileInput.files[0];
       this.isFileUnderfined = false;
@@ -236,7 +286,7 @@ export default {
       }
       this.uploadingProgress = true;
       Problem.uploadFile(this.fileToUpload).then(response => {
-        this.quill.insertText(this.quill.getLength(), `Download : ${this.fileName}`, 'link', `${DEFAULT_HOST}/file/${response.data.url}`);
+        this.editor().insertText(this.editor().getLength(), `Download : ${this.fileName}`, 'link', `${DEFAULT_HOST}/file/${response.data.url}`);
         this.$refs["dismiss-modal"].click();
       })
     },
@@ -254,7 +304,7 @@ export default {
       frm.append("minScore", this.minScore);
       frm.append("maxScore", this.maxScore);
       frm.append("solveThreshold", this.solveThreshold);
-      frm.append("isPublic", this.isPublic);
+      frm.append("isPublic", this.public);
       frm.append("type", this.type);
 
       Problem.uploadProblem(frm).then(response => {
@@ -273,15 +323,5 @@ export default {
     }
   },
 
-  beforeMount() {
-    loadScript("https://cdn.quilljs.com/1.3.6/quill.js").then(() => {
-        // eslint-disable-next-line no-undef
-      this.quill = new Quill('#editor', {
-      theme: 'snow',
-      modules: {
-        toolbar : '#toolbar'
-      }
-    })});
-  }
 }
 </script>
