@@ -120,46 +120,12 @@
       </li>
 
       <li class="menu-item">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-          <div data-i18n="Authentications">Authentications</div>
+        <a href="" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-speaker"></i>
+          <div data-i18n="Basic">Notice</div>
         </a>
-        <ul class="menu-sub">
-          <li class="menu-item">
-            <a href="auth-login-basic.html" class="menu-link" target="_blank">
-              <div data-i18n="Basic">Login</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a href="auth-register-basic.html" class="menu-link" target="_blank">
-              <div data-i18n="Basic">Register</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-              <div data-i18n="Basic">Forgot Password</div>
-            </a>
-          </li>
-        </ul>
       </li>
-      <li class="menu-item">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-          <div data-i18n="Misc">Misc</div>
-        </a>
-        <ul class="menu-sub">
-          <li class="menu-item">
-            <a href="pages-misc-error.html" class="menu-link">
-              <div data-i18n="Error">Error</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a href="pages-misc-under-maintenance.html" class="menu-link">
-              <div data-i18n="Under Maintenance">Under Maintenance</div>
-            </a>
-          </li>
-        </ul>
-      </li>
+
       <!-- Components -->
       <li class="menu-header small text-uppercase"><span class="menu-header-text">SERVER MANAGE</span></li>
       <!-- Cards -->
@@ -192,7 +158,7 @@
       <!-- Misc -->
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
       <li class="menu-item">
-        <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank" class="menu-link">
+        <a href="https://github.com/PENEKhun/CTF-J-ADMIN-PAGE/issues" target="_blank" class="menu-link">
 <!--          <i class="menu-icon tf-icons bx bx-support"></i>-->
           <i class='menu-icon bx bxl-github'></i>
           <div data-i18n="Support">Support</div>
