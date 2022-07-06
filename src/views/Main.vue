@@ -34,7 +34,7 @@ export default {
     Footer
   },
   created: function () {
-    this.$loadScript("./js/Helpers.js").then(() =>
+    this.$loadScript("./js/helpers.js").then(() =>
         this.$loadScript("./js/config.js").then(() =>
             this.$loadScript("./js/menu.js").then(() =>
                 this.$loadScript("./js/perfect-scrollbar.js").then(() =>
@@ -43,7 +43,7 @@ export default {
             )
         )
   )
-  }
+  },
 }
 
 </script>
