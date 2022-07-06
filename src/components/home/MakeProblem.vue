@@ -190,12 +190,9 @@
 
 <script>
 
-import Content from "@/components/common/CommonContent";
-import {loadScript} from "vue-plugin-load-script";
 import {Problem} from "@/api/problem";
 import {DEFAULT_HOST} from "@/api";
 import {QuillEditor} from "@vueup/vue-quill";
-import {Account} from "@/api/account";
 
 export default {
   name: "DefaultHome",
