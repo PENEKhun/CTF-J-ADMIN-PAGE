@@ -57,6 +57,7 @@
 <!--        문제가 존재할때-->
         #{{ problem['id'] }} <br/>
         <strong>title</strong> : {{problem['title']}} <br/>
+        <strong>author</strong> : {{problem['author']}} <br/>
         <strong>description</strong> :
         <QuillEditor readOnly='true' theme="bubble" ref="preview" :content="problem['description']" content-type="html">
         </QuillEditor>
