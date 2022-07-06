@@ -1,7 +1,6 @@
 import { createWebHistory, createRouter } from 'vue-router';
 import NotFound from "@/views/NotFound";
 import DefaultHome from "@/components/home/DefaultHome";
-import Test from "@/components/home/Test";
 import Auth from "@/store/auth";
 import CreateAccount from "@/components/home/CreateAccount";
 import ProblemOverview from "@/components/home/ProblemOverview";
@@ -21,11 +20,6 @@ const routes = [
                 path: "/",
                 component: DefaultHome,
                 name: "default home",
-            },
-            {
-                path: "/test",
-                component: Test,
-                name: "test",
             },
 
             /* Account Menu */
