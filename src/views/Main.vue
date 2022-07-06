@@ -24,7 +24,6 @@
 import CommonMenu from '@/components/common/CommonMenu';
 import Header from "@/components/common/CommonHeader";
 import Footer from "@/components/common/CommonFooter";
-import {loadScript} from "vue-plugin-load-script";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -34,12 +33,12 @@ export default {
     Header,
     Footer
   },
-  mounted: function () {
-    loadScript("/js/Helpers.js").then(() =>
-        loadScript("/js/config.js").then(() =>
-            loadScript("/js/perfect-scrollbar.js").then(() =>
-                loadScript("/js/menu.js").then(() =>
-                    loadScript("/js/main.js")
+  created: function () {
+    this.$loadScript("./js/Helpers.js").then(() =>
+        this.$loadScript("./js/config.js").then(() =>
+            this.$loadScript("./js/menu.js").then(() =>
+                this.$loadScript("./js/perfect-scrollbar.js").then(() =>
+                    this.$loadScript("./js/main.js")
                 )
             )
         )
