@@ -33,7 +33,7 @@
             <td v-else><span class="badge bg-label-warning me-1">Private</span></td>
 
             <td v-if=" line['isPublic'] === true"> {{ line['calculatedScore'] }}</td>
-            <td v-else> ?? </td>
+            <td v-else> {{calculatedScore(line)}} </td>
             <td>
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@
         <strong>solveThreshold</strong> : {{problem['solveThreshold']}} <br/>
         <strong>solve</strong> : {{problem['solve']}} <br/>
         <strong>solveList</strong> : {{problem['solveList']}} <br/>
-        <strong>calculatedScore</strong> : {{problem['calculatedScore']}} <br/>
+        <strong>calculatedScore</strong> : {{calculatedScore(problem)}} <br/>
         <strong>isPublic</strong> : {{problem['isPublic']}} <br/><br/>
 
         <button type="button" @click="editMode=true" class="btn btn-outline-secondary">Edit this account</button>
@@ -95,7 +95,6 @@ import {Problem} from "@/api/problem.js";
 import MakeProblem from "@/components/home/MakeProblem";
 import {QuillEditor} from "@vueup/vue-quill";
 
-// export default {
 export default {
   name: "ProblemOverview",
   components: {
@@ -121,6 +120,14 @@ export default {
       }).catch((err) => {
         console.error(err);
       })
+    },
+    calculatedScore(problem){
+      const minScore = Number(problem['minScore']);
+      const maxScore = Number(problem['maxScore']);
+      const solveThreshold = Number(problem['solveThreshold']);
+      const solve = Number(problem['solve']);
+      const value = (((minScore - maxScore) / Math.pow(solveThreshold, 2)) * Math.pow(solve, 2)) + maxScore;
+      return Math.ceil(value);
     }
   },
   beforeMount() {
